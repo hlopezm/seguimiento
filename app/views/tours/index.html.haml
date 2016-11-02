@@ -1,0 +1,22 @@
+%page-header
+  %h1 Listing tours
+
+%table.table.table-hover
+  %thead
+    %tr
+      %th Name
+      %th Date
+      %th Address
+      %th Image
+      %th
+
+  %tbody
+    - @tours.each do |tour|
+      %tr
+        %td= link_to tour.name, tour
+        %td= tour.date.strftime("%d-%m-%Y")
+        %td= tour.address
+        %td= image_tag tour.image.thumb
+        %td
+          = link_to 'Edit', edit_tour_path(tour)
+          = link_to 'Destroy', tour, :method => :delete, :data => { :confirm => 'Are you sure?' }

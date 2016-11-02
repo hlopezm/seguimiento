@@ -1,0 +1,10 @@
+%p#notice= notice
+
+%h1= @tour.name
+%p= @tour.date.strftime("%d-%m-%Y")
+%p= @tour.address
+%p= image_tag @tour.image, height: "300"
+
+%h1 Visitas en esta gira
+- @tour.cities.each do |city|
+  %p= link_to city.name, city
