@@ -5,7 +5,7 @@ class CreateCities < ActiveRecord::Migration[5.0]
       t.text :observations
       t.boolean :priority
       t.string :image
-      t.belongs_to :tour
+      t.belongs_to :tour, index: true
       t.timestamps
     end
   end

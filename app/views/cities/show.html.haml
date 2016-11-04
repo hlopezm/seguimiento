@@ -3,3 +3,7 @@
 %h1= @city.name
 %p= @city.observations
 %p= image_tag @city.image, height: "300"
+
+%br
+
+%p= link_to 'Regresar', :back, class: "btn btn-primary"

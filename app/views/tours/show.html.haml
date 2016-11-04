@@ -8,3 +8,7 @@
 %h1 Visitas en esta gira
 - @tour.cities.each do |city|
   %p= link_to city.name, city
+
+%br
+
+%p= link_to 'Regresar', tours_path, class: "btn btn-primary"
