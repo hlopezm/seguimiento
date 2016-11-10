@@ -1,0 +1,14 @@
+%p#notice= notice
+
+%h1= @report.nombre
+%p= @report.fecha.strftime("%d-%m-%Y")
+%p= @report.direccion
+%p= image_tag @report.image, height: "300"
+
+%h2 Visitas en esta gira
+- @report.cities.each do |city|
+  %p= link_to city.nombre, city
+
+%br
+
+%p= link_to 'Regresar', reports_path, class: "btn btn-primary"

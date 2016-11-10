@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  resources :tours
+  resources :reports
   resources :cities
-  root 'tours#index'
+  resources :federals
+  resources :locals
+  root 'reports#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

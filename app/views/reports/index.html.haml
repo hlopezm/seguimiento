@@ -1,0 +1,20 @@
+%page-header
+  %h1 Listado Distritos Locales
+
+%table.table.table-hover
+  %thead
+    %tr
+      %th Nombre
+      %th Fecha
+      %th Dirección
+      %th Imagen
+      %th
+
+  %tbody
+    - @reports.each do |report|
+      %tr
+        %td= link_to report.nombre, report
+        %td= report.fecha.strftime("%d-%m-%Y")
+        %td= report.direccion
+        %td= image_tag report.image.thumb
+        %td

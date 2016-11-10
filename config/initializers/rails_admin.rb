@@ -1,5 +1,6 @@
 RailsAdmin.config do |config|
 
+config.main_app_name = Proc.new { |controller| [ "Reportes Ejecutivos", "CDE Hidalgo - #{controller.params[:action].try(:titleize)}" ] }
   ### Popular gems integration
 
   ## == Devise ==

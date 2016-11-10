@@ -4,16 +4,19 @@
 %table.table.table-hover
   %thead
     %tr
-      %th Name
-      %th Observations
-      %th Address
+      %th Nombre
+      %th Presidente Municipal
+      %th Prioridad
+      %th Observaciones
       %th Image
       %th
 
   %tbody
     - @cities.each do |city|
       %tr
-        %td= link_to city.name, city
-        %td= city.observations
+        %td= link_to city.nombre, city
+        %td= city.presidente_mpal
+        %td= city.prioridad
+        %td= city.observaciones
         %td= image_tag city.image.thumb
         %td
