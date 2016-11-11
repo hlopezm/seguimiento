@@ -10,8 +10,12 @@
 
   <body>
     <%= render "nav" %>
-      <div class="container">
-    <%= yield %>
-  </div>
+
+    <div class="container">
+      <% if notice %><div class="alert alert-info"> <%= notice %> </div> <% end %>
+      <% if alert %><div class="alert alert-warning"> <%= alert %> </div> <% end %>
+      
+      <%= yield %>
+    </div>
   </body>
 </html>

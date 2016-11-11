@@ -1,4 +1,5 @@
 class FederalsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_federal, only: [:show, :edit, :update, :destroy]
 
   def index

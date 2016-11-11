@@ -21,10 +21,17 @@
       <li class="nav-item">
         <p> </p>
       </li>
-      <form class="form-inline float-lg-left">
-        <input class="form-control" type="text" placeholder="Search">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-      </form>
+    </ul>
+    <form class="form-inline float-lg-left">
+      <input class="form-control" type="text" placeholder="Search">
+      <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+    <ul class="nav navbar-nav float-lg-right">
+      <% if user_signed_in? %>
+      <li class="nav-item nav-link btn"> <%= link_to "Log out", destroy_user_session_path, method: :delete %> </li>
+      <% else %>
+      <li class="nav-item nav-link btn"> <%= link_to "Sign In", new_user_session_path %> </li>
+      <% end %>
     </ul>
   </div>
 </nav>
