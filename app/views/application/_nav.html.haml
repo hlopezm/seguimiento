@@ -1,0 +1,28 @@
+- if user_signed_in?
+  %nav.navbar.navbar-fixed-top.navbar-dark.bg-inverse.bg-faded
+    %button.navbar-toggler.hidden-lg-up{"aria-controls" => "navbarResponsive", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarResponsive", "data-toggle" => "collapse", :type => "button"}
+    %a.navbar-brand{:href => "/"}
+      %img.d-inline-block.align-top{:alt => "", :height => "30", :src => "/logopri.svg", :width => "30"}>/
+      CDE Hidalgo
+    #navbarResponsive.collapse.navbar-toggleable-md
+      %ul.nav.navbar-nav
+        %li.nav-item
+          %a.nav-link{:href => "/cities"} Municipios
+        %li.nav-item.dropdown
+          %span.sr-only (current)
+          %a#responsiveNavbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => ""} Distritos
+          .dropdown-menu{"aria-labelledby" => "responsiveNavbarDropdown"}
+            %a.dropdown-item{:href => "/locals"} Locales
+            %a.dropdown-item{:href => "/federals"} Federales
+        %li.nav-item
+          %p
+      %form.form-inline.float-lg-left
+        %input.form-control{:placeholder => "Search", :type => "text"}/
+        %button.btn.btn-outline-success{:type => "submit"} Buscar
+      %ul.nav.navbar-nav.float-lg-right
+        - if user_signed_in?
+          %li.nav-item.nav-link.btn
+            = link_to "Log out", destroy_user_session_path, method: :delete
+        - else
+          %li.nav-item.nav-link.btn
+            = link_to "Sign In", new_user_session_path

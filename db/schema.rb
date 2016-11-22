@@ -10,84 +10,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161111021828) do
+ActiveRecord::Schema.define(version: 20161119053613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "cities", force: :cascade do |t|
     t.string   "nombre"
-    t.string   "presidente_mpal"
+    t.string   "pdte_mpal"
+    t.string   "partido_pdte"
     t.text     "observaciones"
     t.integer  "prioridad"
     t.string   "image"
-    t.integer  "report_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["report_id"], name: "index_cities_on_report_id", using: :btree
+    t.string   "cityable_type"
+    t.integer  "cityable_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["cityable_type", "cityable_id"], name: "index_cities_on_cityable_type_and_cityable_id", using: :btree
   end
 
-  create_table "cities_federals", id: false, force: :cascade do |t|
-    t.integer "city_id",    null: false
-    t.integer "federal_id", null: false
-    t.index ["city_id", "federal_id"], name: "index_cities_federals_on_city_id_and_federal_id", using: :btree
-    t.index ["federal_id", "city_id"], name: "index_cities_federals_on_federal_id_and_city_id", using: :btree
-  end
-
-  create_table "cities_locals", id: false, force: :cascade do |t|
-    t.integer "city_id",  null: false
-    t.integer "local_id", null: false
-    t.index ["city_id", "local_id"], name: "index_cities_locals_on_city_id_and_local_id", using: :btree
-    t.index ["local_id", "city_id"], name: "index_cities_locals_on_local_id_and_city_id", using: :btree
-  end
-
-  create_table "cities_reports", id: false, force: :cascade do |t|
-    t.integer "report_id", null: false
-    t.integer "city_id",   null: false
-    t.index ["city_id", "report_id"], name: "index_cities_reports_on_city_id_and_report_id", using: :btree
-    t.index ["report_id", "city_id"], name: "index_cities_reports_on_report_id_and_city_id", using: :btree
-  end
-
-  create_table "federals", force: :cascade do |t|
-    t.integer  "city_id"
-    t.integer  "report_id"
+  create_table "districts", force: :cascade do |t|
     t.string   "nombre"
     t.string   "diputado"
     t.string   "image"
     t.integer  "prioridad"
     t.text     "observaciones"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["city_id"], name: "index_federals_on_city_id", using: :btree
-    t.index ["report_id"], name: "index_federals_on_report_id", using: :btree
+    t.string   "type"
+    t.string   "districtable_type"
+    t.integer  "districtable_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["districtable_type", "districtable_id"], name: "index_districts_on_districtable_type_and_districtable_id", using: :btree
   end
 
-  create_table "federals_reports", id: false, force: :cascade do |t|
-    t.integer "report_id",  null: false
-    t.integer "federal_id", null: false
-    t.index ["federal_id", "federal_id"], name: "index_federals_reports_on_federal_id_and_federal_id", using: :btree
-    t.index ["report_id", "federal_id"], name: "index_federals_reports_on_report_id_and_federal_id", using: :btree
+  create_table "elections", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "year"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "result_id",  default: 1
+    t.index ["result_id"], name: "index_elections_on_result_id", using: :btree
   end
 
-  create_table "locals", force: :cascade do |t|
-    t.integer  "city_id"
-    t.integer  "report_id"
+  create_table "parties", force: :cascade do |t|
     t.string   "nombre"
-    t.string   "diputado"
+    t.string   "nombre_corto"
     t.string   "image"
-    t.integer  "prioridad"
-    t.text     "observaciones"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["city_id"], name: "index_locals_on_city_id", using: :btree
-    t.index ["report_id"], name: "index_locals_on_report_id", using: :btree
-  end
-
-  create_table "locals_reports", id: false, force: :cascade do |t|
-    t.integer "report_id", null: false
-    t.integer "local_id",  null: false
-    t.index ["local_id", "report_id"], name: "index_locals_reports_on_local_id_and_report_id", using: :btree
-    t.index ["report_id", "local_id"], name: "index_locals_reports_on_report_id_and_local_id", using: :btree
+    t.string   "partyable_type"
+    t.integer  "partyable_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["partyable_type", "partyable_id"], name: "index_parties_on_partyable_type_and_partyable_id", using: :btree
   end
 
   create_table "reports", force: :cascade do |t|
@@ -96,11 +69,20 @@ ActiveRecord::Schema.define(version: 20161111021828) do
     t.string   "direccion"
     t.text     "descripcion"
     t.string   "image"
-    t.integer  "id_city"
-    t.integer  "id_federal"
-    t.integer  "id_local"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "reportable_type"
+    t.integer  "reportable_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "election_id",     default: 1
+    t.index ["election_id"], name: "index_reports_on_election_id", using: :btree
+    t.index ["reportable_type", "reportable_id"], name: "index_reports_on_reportable_type_and_reportable_id", using: :btree
+  end
+
+  create_table "results", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "votes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -121,8 +103,6 @@ ActiveRecord::Schema.define(version: 20161111021828) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "federals", "cities"
-  add_foreign_key "federals", "reports"
-  add_foreign_key "locals", "cities"
-  add_foreign_key "locals", "reports"
+  add_foreign_key "elections", "results"
+  add_foreign_key "reports", "elections"
 end

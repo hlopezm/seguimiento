@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%h1= @district.nombre
+%p= @district.diputado
+%p= @district.prioridad
+%p= @district.observaciones
+%p= image_tag @district.image, height: "300"
+
+%h2 Municipios que lo integran
+- @district.cities.each do |city|
+  %p= link_to city.nombre, city
+
+%br
+
+%p= link_to 'Regresar', districts_path, class: "btn btn-primary"

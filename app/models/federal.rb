@@ -1,5 +1,3 @@
-class Federal < ApplicationRecord
-  mount_uploader :image, ImageUploader
+class Federal < District
 
-  has_and_belongs_to_many :cities
 end
