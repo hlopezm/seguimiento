@@ -1,0 +1,25 @@
+%h1 Listing elections
+
+%table
+  %thead
+    %tr
+      %th Nombre
+      %th Año
+      %th Tipo Elección
+      %th Nominal
+
+
+  %tbody
+    - @elections.each do |election|
+      %tr
+        %td= election.nombre
+        %td= election.year.nombre
+        %td= election.category.nombre
+        %td= election.nominal
+        %td= link_to 'Show', election
+        %td= link_to 'Edit', edit_election_path(election)
+        %td= link_to 'Destroy', election, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Election', new_election_path

@@ -8,4 +8,7 @@
   cities = City.create([{ nombre: 'Pachuca' }, { nombre: 'Tula' }, { nombre: 'Tulancingo' }, { nombre: 'Tizayuca' }])
   districts = District.create([{ nombre: 'Distrito I' }, { nombre: 'Distrito II' }, { nombre: 'Distrito III' }, { nombre: 'Distrito IV' }])
   reports = Report.create([{ nombre: 'Gira Pachuca' }, { nombre: 'Gira Huasteca' }])
-  parties = Party.create([{ nombre: 'Partido Revolucionario Institucional' }, { nombre: 'Partido Verde' }])
+  years = Year.create([{ nombre: '2010' }, { nombre: '2011' }])
+  elections = Election.create([{ nombre: 'Elección Gobernador 2010' }, { nombre: 'Elección Ayuntamientos 2011' }])
+  categories = Category.create([{ nombre: 'Ayuntamientos' }, { nombre: 'Diputados Locales' }, { nombre: 'Diputados Federales' }, { nombre: 'Gobernador'} ])
+  parties = Party.create([{nombre: 'PRI'}, {nombre: 'PAN'}])

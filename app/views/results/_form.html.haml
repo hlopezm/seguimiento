@@ -1,0 +1,19 @@
+= form_for @result do |f|
+  - if @result.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@result.errors.count, "error")} prohibited this result from being saved:"
+      %ul
+        - @result.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :Elección
+    = f.select :election_id, Election.all.map { |e| [e.nombre, e.id ] }, {}, { class: "form-control input-lg" }
+  .field
+    = f.label :Partido
+    = f.select :party_id, Party.all.map { |p| [p.nombre, p.id ] }, {}, { class: "form-control input-lg" }
+  .field
+    = f.label :Votos
+    = f.number_field :votos
+  .actions
+    = f.submit 'Save'

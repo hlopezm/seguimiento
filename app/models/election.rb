@@ -1,4 +1,5 @@
 class Election < ApplicationRecord
 
-  has_many :results
+  belongs_to :year
+  belongs_to :category
 end

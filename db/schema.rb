@@ -10,23 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161119053613) do
+ActiveRecord::Schema.define(version: 20161123202400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "cities", force: :cascade do |t|
     t.string   "nombre"
     t.string   "pdte_mpal"
     t.string   "partido_pdte"
     t.text     "observaciones"
-    t.integer  "prioridad"
+    t.boolean  "prioridad"
     t.string   "image"
-    t.string   "cityable_type"
-    t.integer  "cityable_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.index ["cityable_type", "cityable_id"], name: "index_cities_on_cityable_type_and_cityable_id", using: :btree
   end
 
   create_table "districts", force: :cascade do |t|
@@ -36,53 +39,47 @@ ActiveRecord::Schema.define(version: 20161119053613) do
     t.integer  "prioridad"
     t.text     "observaciones"
     t.string   "type"
-    t.string   "districtable_type"
-    t.integer  "districtable_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.index ["districtable_type", "districtable_id"], name: "index_districts_on_districtable_type_and_districtable_id", using: :btree
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "elections", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "year"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "result_id",  default: 1
-    t.index ["result_id"], name: "index_elections_on_result_id", using: :btree
+    t.string   "nombre"
+    t.integer  "nominal"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "year_id",     default: 1
+    t.integer  "category_id", default: 1
+    t.index ["category_id"], name: "index_elections_on_category_id", using: :btree
+    t.index ["year_id"], name: "index_elections_on_year_id", using: :btree
   end
 
   create_table "parties", force: :cascade do |t|
     t.string   "nombre"
-    t.string   "nombre_corto"
     t.string   "image"
-    t.string   "partyable_type"
-    t.integer  "partyable_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["partyable_type", "partyable_id"], name: "index_parties_on_partyable_type_and_partyable_id", using: :btree
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reports", force: :cascade do |t|
     t.string   "nombre"
     t.datetime "fecha"
-    t.string   "direccion"
     t.text     "descripcion"
     t.string   "image"
-    t.string   "reportable_type"
-    t.integer  "reportable_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "election_id",     default: 1
-    t.index ["election_id"], name: "index_reports_on_election_id", using: :btree
-    t.index ["reportable_type", "reportable_id"], name: "index_reports_on_reportable_type_and_reportable_id", using: :btree
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "results", force: :cascade do |t|
-    t.string   "name"
-    t.decimal  "votes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "votos"
+    t.integer  "election_id"
+    t.integer  "city_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "party_id",    default: 1
+    t.index ["city_id"], name: "index_results_on_city_id", using: :btree
+    t.index ["election_id"], name: "index_results_on_election_id", using: :btree
+    t.index ["party_id"], name: "index_results_on_party_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -103,6 +100,15 @@ ActiveRecord::Schema.define(version: 20161119053613) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "elections", "results"
-  add_foreign_key "reports", "elections"
+  create_table "years", force: :cascade do |t|
+    t.string   "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "elections", "categories"
+  add_foreign_key "elections", "years"
+  add_foreign_key "results", "cities"
+  add_foreign_key "results", "elections"
+  add_foreign_key "results", "parties"
 end

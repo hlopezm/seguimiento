@@ -1,0 +1,22 @@
+= form_for @election do |f|
+  - if @election.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@election.errors.count, "error")} prohibited this election from being saved:"
+      %ul
+        - @election.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :nombre
+    = f.text_field :nombre
+  .field
+    = f.label :Año
+    = f.select :year_id, Year.all.map { |y| [ y.nombre, y.id ] }
+  .field
+    = f.label :Categoría
+    = f.select :category_id, Category.all.map { |c| [ c.nombre, c.id ] }
+  .field
+    = f.label :lista_nominal
+    = f.number_field :nominal
+  .actions
+    = f.submit 'Save'

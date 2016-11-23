@@ -5,9 +5,8 @@ class CreateCities < ActiveRecord::Migration[5.0]
       t.string :pdte_mpal
       t.string :partido_pdte
       t.text :observaciones
-      t.integer :prioridad
+      t.boolean :prioridad
       t.string :image
-      t.references :cityable, polymorphic: true, index: true
       t.timestamps
     end
 

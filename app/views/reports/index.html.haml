@@ -1,5 +1,5 @@
 %page-header
-  %h1 Listado de Carpetas 
+  %h1 Listado de Carpetas
 
 %table.table.table-hover
   %thead
@@ -14,7 +14,7 @@
     - @reports.each do |report|
       %tr
         %td= link_to report.nombre, report
-        %td= report.fecha.strftime("%d-%m-%Y")
-        %td= report.direccion
+        %td= report.fecha
+        %td= report.descripcion
         %td= image_tag report.image.thumb
         %td

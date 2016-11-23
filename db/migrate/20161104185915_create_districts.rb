@@ -7,7 +7,6 @@ class CreateDistricts < ActiveRecord::Migration[5.0]
       t.integer :prioridad
       t.text :observaciones
       t.string :type
-      t.references :districtable, polymorphic: true, index: true
       t.timestamps
     end
   end

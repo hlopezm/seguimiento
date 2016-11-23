@@ -1,0 +1,25 @@
+%h1 Listing results
+
+%table.table.table-hover
+  %thead
+    %tr
+      %th Elección
+      %th Año
+      %th Partido
+      %th Votos
+      %th
+
+  %tbody
+    - @results.each do |result|
+      %tr
+        %td= result.election.nombre
+        %td= result.election.year.nombre
+        %td= result.party.nombre
+        %td= result.votos
+        %td= link_to 'Show', result
+        %td= link_to 'Edit', edit_result_path(result)
+        %td= link_to 'Destroy', result, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Result', new_result_path, class: "btn btn-primary"

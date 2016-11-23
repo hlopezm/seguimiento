@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Votos:
+  = @result.votos
+%p
+  %b Election:
+  = @result.election.nombre
+%p
+  %b Party:
+  = @result.party.nombre
+
+= link_to 'Edit', edit_result_path(@result)
+\|
+= link_to 'Back', results_path
